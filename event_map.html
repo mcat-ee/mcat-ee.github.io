@@ -1,5 +1,4 @@
 <html>
-
 	<head>
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
 		<!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -131,15 +130,11 @@
  			}
  		</style>
 
-
  		<link rel="stylesheet" href="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.css">
 
 	</head>
 
 	<body>
-
-		
-
 		<div id="mapid"></div>
 		<div id="cardList">
 		<div id="myModal" class="modal">
@@ -162,8 +157,7 @@
 		  </div>
 
 		</div>
-			<h1 class="pageTitle"> TEST INC.
-			</h1>
+			<h1 class="pageTitle"> TEST INC.</h1>
 			<div class="nav">
 				<a href="#">Test1</a> | <a href="#">Test2</a>
 			</div>
@@ -175,51 +169,38 @@
 				<div class="filterButton" onclick="setFilter(this)">Earliest</div>
 				<div class="filterButton" >Previous</div>
 				<div class="filterButton" >Next</div>
-				
 			</div>
-
 			<div id="cardContainer"></div>
 		</div>
 
 		<script type="text/javascript">
 
-			function jump(obj) {
- 				// console.log(obj);
+		function jump(obj) {
+			obj = obj.target;
+			var result = obj.dataObj;
 
- 				obj = obj.target;
- 				console.log(obj);
- 				var result = obj.dataObj;
- 				// var result =  JSON.parse(obj.dataObj);
- 				console.log(result);
- 				console.log("MARKER");
- 			
- 				// window.mymap.setView([result.lat, result.lng], 13, {
- 				// 	"animate": true,
-					// "pan": {
-					//     "duration": 3
-					// }
- 				// });
+	 		window.mymap.flyTo([result.lat, result.lng], window.mymap.getZoom(), {
+			    animate: true,
+		    	duration: 4
+			});
+ 		}
 
- 				window.mymap.flyTo([result.lat, result.lng], window.mymap.getZoom(), {
-			      animate: true,
-			      duration: 4
-			    });
- 			
- 				// window.mymap.setView([result.lat, result.lng], 13);
- 			}
+		window.locationList = [
+			{
+				lat: "51.53673",
+				lng:  "-0.20086",
+				title: "test point 3"
+			},
+			{
+				lat: "51.41784", 
+				lng:  "-0.17458",
+				title: "test point 2"
+			}
+		];
 
- 			window.locationList = [
- 				{
- 					lat: "51.53673",
- 					lng:  "-0.20086",
- 					title: "test point 3"
- 				},
- 				{
- 					lat: "51.41784", 
- 					lng:  "-0.17458",
- 					title: "test point 2"
- 				}
- 			]
+		window.addLocationMarker = null;
+		window.addPositionModal = document.getElementById("myModal");
+		window.addPositionModalCloseButton = document.getElementsByClassName("close")[0];
 
 		function setFilter(event) {
 			var container = document.getElementById("cardContainer");
@@ -231,9 +212,7 @@
 			}
 		}
 
-		window.addLocationMarker = null;
-		window.addPositionModal = document.getElementById("myModal");
-		window.addPositionModalCloseButton = document.getElementsByClassName("close")[0];
+
 
 		function clearChildren(element) {
 			var fieldChildren = element.children;
@@ -267,7 +246,6 @@
 		}
 
 		addPositionModalCloseButton.onclick = function() {
-
 		  closeModal();
 		}
 
@@ -291,14 +269,11 @@
 			positionElement.innerHTML = dataItem["lat"] + "," + dataItem["lng"];
 			newElement.appendChild(positionElement);
 
-				newElement.className = "card";
-				newElement.onclick = jump;
-				// newElement.innerHTML = JSON.stringify(dataItem);
-				// console.log(newElement);
-				newElement.dataObj = dataItem;
-				addMarkerForCard(dataItem);
-				return newElement;
-				// container.appendChild(newElement);
+			newElement.className = "card";
+			newElement.onclick = jump;
+			newElement.dataObj = dataItem;
+			addMarkerForCard(dataItem);
+			return newElement;
 
 		}
 
@@ -309,12 +284,6 @@
 				var dataItem = window.locationList[index];
 				var newElement = cardFactory(dataItem);
 				container.appendChild(newElement);
-				// var newElement = document.createElement("div");
-				// newElement.className = "card";
-				// newElement.onclick = jump;
-				// newElement.innerHTML = JSON.stringify(dataItem);
-				// console.log(newElement);
-				// container.appendChild(newElement);
 			}
 		}
 
@@ -352,21 +321,6 @@
 			    accessToken: 'pk.eyJ1IjoibWNhdGVlIiwiYSI6ImNrOGlqNnN4NDAyaWYzZG80dm1zZHNwamkifQ.WcWzYx_FxZRIfcSaaxhRiA'
 			}).addTo(mymap);
 
-			var circle = L.circle([51.508, -0.11], {
-			    color: 'red',
-			    fillColor: '#f03',
-			    fillOpacity: 0.5,
-			    radius: 500,
-			    contextmenu: true,
-			    contextmenuItems: [{
-			        text: 'Show Area Info',
-			        index: 0
-			    }, {
-			        separator: true,
-			        index: 1
-			    }]
-			}).addTo(mymap);
-
 			function showCoordinates (e) {
 				alert(e.latlng);
 			}
@@ -374,8 +328,6 @@
 			function addPositionFromContextMenu(event) {
 				var modal = document.getElementById("myModal");
 				modal.style.display = "block";
-
-				
 
 				var positionContainer = document.getElementById("cardContainer");
 				console.log("ADDING POSITION");
@@ -397,9 +349,7 @@
 
 				window.addLocationMarker = marker;
 				addLocationMarker.addTo(mymap);
-
 				return;
-
 				//On cancel
 					//Clean up temporary marker
 				//On success
@@ -429,62 +379,6 @@
 			function zoomOut (e) {
 				mymap.zoomOut();
 			}
-
-			//Factories
-			class Unit{	
-				constructor(location, type, ownerKey) {
-					this.location = location;
-					this.type = type;
-					this.id = Unit.unitCount++;
-					this.ownerKey = ownerKey;
-					this.marker =  L.marker(this.location, {
-						contextmenu: true,
-					    contextmenuItems: [{
-					        text: 'Select',
-					        index: 0
-					    }]
-					});
-					this.speed = 5;
-					this.usedSpeed = 0;
-					this.selected = false;
-
-
-
-					this.marker.bindPopup("<b>Type:</b> " + this.type +"<br/><b>Owner:</b> "+this.ownerKey +"")
-					this.marker.on("click", () => {
-					window.selectedUnit = this;
-					// 	// alert("doop");
-					// 	this.selected = this.selected ? false : true;
-
-					// 	this.selected ? this.marker.setIcon(greenIcon) : this.marker.setIcon(L.Icon.Default);
-					});
-				}
-
-				addMarker() {
-					console.log("doop");
-					this.marker.addTo(mymap);
-				}
-
-				static unitCount = 0;
-			
-			}
-
-			var greenIcon = L.icon({
-			    iconUrl: 'leaf.png',
-			    shadowUrl: 'shadow.png',
-
-			    iconSize:     [38, 95], // size of the icon
-			    shadowSize:   [50, 64], // size of the shadow
-			    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-			    shadowAnchor: [4, 62],  // the same for the shadow
-			    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-			});
-
-			//Initiator
-			L.control.mousePosition().addTo(mymap);
-			var testUnit = new Unit([51.508, -0.11], "settler", "player_1");
-			console.log(testUnit);
-			testUnit.addMarker();
 
 			renderLocations()
 		</script>

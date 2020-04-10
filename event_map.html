@@ -132,48 +132,8 @@
  		</style>
 
 
-
  		<link rel="stylesheet" href="https://unpkg.com/leaflet-contextmenu@1.4.0/dist/leaflet.contextmenu.css">
 
- 		<script type="text/javascript">
- 			function jump(obj) {
- 				// console.log(obj);
-
- 				obj = obj.target;
- 				console.log(obj);
- 				var result = obj.dataObj;
- 				// var result =  JSON.parse(obj.dataObj);
- 				console.log(result);
- 				console.log("MARKER");
- 			
- 				// window.mymap.setView([result.lat, result.lng], 13, {
- 				// 	"animate": true,
-					// "pan": {
-					//     "duration": 3
-					// }
- 				// });
-
- 				window.mymap.flyTo([result.lat, result.lng], window.mymap.getZoom(), {
-			      animate: true,
-			      duration: 4
-			    });
- 			
- 				// window.mymap.setView([result.lat, result.lng], 13);
- 			}
-
- 			window.locationList = [
- 				{
- 					lat: "51.53673",
- 					lng:  "-0.20086",
- 					title: "test point 3"
- 				},
- 				{
- 					lat: "51.41784", 
- 					lng:  "-0.17458",
- 					title: "test point 2"
- 				}
- 			]
- 		</script>
 	</head>
 
 	<body>
@@ -222,6 +182,45 @@
 		</div>
 
 		<script type="text/javascript">
+
+			function jump(obj) {
+ 				// console.log(obj);
+
+ 				obj = obj.target;
+ 				console.log(obj);
+ 				var result = obj.dataObj;
+ 				// var result =  JSON.parse(obj.dataObj);
+ 				console.log(result);
+ 				console.log("MARKER");
+ 			
+ 				// window.mymap.setView([result.lat, result.lng], 13, {
+ 				// 	"animate": true,
+					// "pan": {
+					//     "duration": 3
+					// }
+ 				// });
+
+ 				window.mymap.flyTo([result.lat, result.lng], window.mymap.getZoom(), {
+			      animate: true,
+			      duration: 4
+			    });
+ 			
+ 				// window.mymap.setView([result.lat, result.lng], 13);
+ 			}
+
+ 			window.locationList = [
+ 				{
+ 					lat: "51.53673",
+ 					lng:  "-0.20086",
+ 					title: "test point 3"
+ 				},
+ 				{
+ 					lat: "51.41784", 
+ 					lng:  "-0.17458",
+ 					title: "test point 2"
+ 				}
+ 			]
+
 		function setFilter(event) {
 			var container = document.getElementById("cardContainer");
 
@@ -230,14 +229,11 @@
 			} else {
 				container.style.flexDirection = "column-reverse";
 			}
-			console.log(event.innerHTML);
 		}
 
 		window.addLocationMarker = null;
-
 		window.addPositionModal = document.getElementById("myModal");
 		window.addPositionModalCloseButton = document.getElementsByClassName("close")[0];
-
 
 		function clearChildren(element) {
 			var fieldChildren = element.children;

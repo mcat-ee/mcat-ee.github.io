@@ -1,0 +1,174 @@
+<html>
+	<head>
+		<!-- https://www.labnol.org/code/19933-embed-tweet-with-javascript -->
+		<script type="text/javascript">
+			window.mainData = {
+				timelineProperties: {
+					title: "Test timeline title"
+				},
+				eventObjects: [
+					{
+						title: "First event title",
+						startingLocation: [],
+						videoObjects: [
+							{
+								url: "https://test",
+								position: [0, 1],			//Optional
+							},
+							{
+								url: "https://2"
+							}
+						]
+					},
+					{
+						title:"Second",
+						startingLocation: [2,3],
+						videoObjects: [
+							{
+								url: "secondURL", 
+								position:[2,2]
+							}
+						]
+					}
+				]
+			}
+		</script>
+
+		<style type="text/css">
+			body {
+				margin: 0 0;
+				display: flex;
+				flex-direction: column;
+			}	
+
+			.topBar {
+				background-color: #eee;
+				width: 100%;
+				min-height: 20vh;
+				display: flex;
+				flex-direction: row;
+			}
+
+			.eventDescription{
+				background-color: #ddd;
+				min-height:5vh;
+			}
+
+			.bodyContainer{
+				min-height: 75vh;
+				background-color: #eee;
+				display: flex;
+				flex-direction: row;
+			}
+
+			#mapContainer{
+				flex:1;
+			}
+
+			#videoContainer{
+				background-color: #ccc;
+				flex:1;
+			}
+
+			#eventVideosContainer {
+				background-color: #eee;
+				width: 100%;
+				/*min-height: 20vh;*/
+				display: flex;
+				flex-direction: row;
+			}
+
+			.eventIcon{
+				background-color: #ccc;
+				min-width: 150px;
+				margin-right:15px;
+			}
+
+			.eventVideoIcon {
+				background-color: #bbb;
+				min-width:5vh;
+				min-height:5vh;
+				margin-right:5px;
+			}
+
+			.eventVideoSetContainer{
+				display: flex;
+				flex-direction: row;
+			}
+		</style>
+
+		<div id="eventContainer" class="topBar">
+			
+		</div>
+		<div class="eventDescription">
+			<div id="timelineTitle">Loading</div>
+		</div>
+		<div id="eventVideoSetContainer" class="eventVideoSetContainer">
+		</div>
+		<div class="bodyContainer">
+			<div id="mapContainer"></div>
+			<div id="videoContainer"></div>
+		</div>
+
+		<script type="text/javascript">
+			function generateEventIcons() {
+				for(var eventIndex = 0 ; eventIndex < mainData.eventObjects.length ; eventIndex++) {
+					var selectedEvent = mainData.eventObjects[eventIndex];
+
+					var newElement = document.createElement("div");
+					newElement.className = "eventIcon";
+					newElement.innerHTML = selectedEvent.title;
+					var eventContainer = document.getElementById("eventContainer");
+					eventContainer.appendChild(newElement);
+
+				}
+			}
+
+			function initialiseEventView() {
+				
+			}
+
+			function initialiseApp() {
+				//Set title
+				var timelineTitle = document.getElementById("timelineTitle");
+				timelineTitle.innerHTML = mainData.timelineProperties.title;
+
+				//Select first event
+				window.currentPointIndex = 0;
+				window.currentEvent = mainData.eventObjects[0];
+				window.currentPoint = currentEvent.videoObjects[0];
+				var calculatedStartingLocation = [];
+				if(currentPoint.position == null) {
+					//Use eventDefault
+					calculatedStartingLocation = currentEvent.startingLocation;
+				} else {
+					calculatedStartingLocation = currentPoint.position;
+				}
+
+				var videoContainer = document.getElementById("videoContainer");
+				var mapContainer = document.getElementById("mapContainer");
+				console.log(calculatedStartingLocation);
+				mapContainer.innerHTML = calculatedStartingLocation;
+				videoContainer.innerHTML = currentPoint.url;
+			}
+
+			function generateEventVideoIcons() {
+				//currentEvent
+				var container = document.getElementById("eventVideoSetContainer");
+
+				for(var videoIndex = 0 ; videoIndex < currentEvent.videoObjects.length; videoIndex++) {
+					var videoObject = currentEvent.videoObjects[videoIndex];
+
+					var newVideoIconElement = document.createElement("div");
+					newVideoIconElement.className = "eventVideoIcon";
+					newVideoIconElement.innerHTML = videoObject.url;
+					container.appendChild(newVideoIconElement);
+				}
+			}
+
+
+			initialiseApp();
+			generateEventIcons();
+			generateEventVideoIcons();
+		</script>
+	</body>

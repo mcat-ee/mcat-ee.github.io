@@ -217,24 +217,27 @@
 				width:100%;
 				min-height:5vh;
 				background-color: black;
+				display: flex;
+				flex-direction: row;
 			}
 
 			.headerButton{
 				background-color: white;
-				background-image: url('menu.png');
+
 				width:5vh;
 				height:5vh;
 				background-repeat: no-repeat;
-  background-size: auto;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+			  background-size: auto;
+			  -webkit-background-size: cover;
+			  -moz-background-size: cover;
+			  -o-background-size: cover;
+			  background-size: cover;
   			margin:5px;
 			}
 		</style>
 		<div id="headerBar">
-			<div class="headerButton"></div>
+			<div class="headerButton" style="background-image: url('menu.png');"></div>
+			<div class="headerButton" style="background-image: url('info.png');"></div>
 		</div>
 		<div id="eventAndControllerContainer" class="topBar">
 			<div class="controllerButton previousButton" onclick="handleEventChange(this)">Previous Event<br/><img src="back.png"/></div>

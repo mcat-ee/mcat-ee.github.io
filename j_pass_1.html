@@ -148,7 +148,7 @@
 			}
 
 			.selectedEventIcon {
-				background-color: grey
+				background-color: #74C352
 			}
 
 			.eventVideoSetContainer{
@@ -212,13 +212,36 @@
 			.eventAndControllerContainer .controllerButton{
 				flex: 1;
 			}
+
+			#headerBar {
+				width:100%;
+				min-height:5vh;
+				background-color: black;
+			}
+
+			.headerButton{
+				background-color: white;
+				background-image: url('menu.png');
+				width:5vh;
+				height:5vh;
+				background-repeat: no-repeat;
+  background-size: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  			margin:5px;
+			}
 		</style>
+		<div id="headerBar">
+			<div class="headerButton"></div>
+		</div>
 		<div id="eventAndControllerContainer" class="topBar">
-			<div class="controllerButton previousButton" onclick="handleEventChange(this)">Previous Event</div>
+			<div class="controllerButton previousButton" onclick="handleEventChange(this)">Previous Event<br/><img src="back.png"/></div>
 			<div id="eventContainer" >
 				
 			</div>
-			<div class="controllerButton nextButton" onclick="handleEventChange(this)">Next Event</div>
+			<div class="controllerButton nextButton" onclick="handleEventChange(this)">Next Event<br/><img src="forward.png"/></div>
 		</div>
 		
 
@@ -306,7 +329,7 @@
 				currentEvent = target.target.dataObject;
 				console.log(currentEvent);
 				currentPoint = currentEvent.videoObjects[0];
-				clearEventVideos();
+				// clearEventVideos();
 				// generateEventVideoIcons();
 				resetView();
 			}

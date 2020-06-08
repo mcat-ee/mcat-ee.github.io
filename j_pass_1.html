@@ -227,40 +227,100 @@
 				width:5vh;
 				height:5vh;
 				background-repeat: no-repeat;
-			  background-size: auto;
-			  -webkit-background-size: cover;
-			  -moz-background-size: cover;
-			  -o-background-size: cover;
-			  background-size: cover;
-  			margin:5px;
+				  background-size: auto;
+				  -webkit-background-size: cover;
+				  -moz-background-size: cover;
+				  -o-background-size: cover;
+				  background-size: cover;
+  				margin:5px;
+			}
+
+			@media only screen and (max-width: 1000px) {
+			  /*body {
+			    background-color: lightblue;
+			  }*/
+			  .topBar{
+			  	min-height:14vh;
+
+			  }
+			  .eventIcon{
+			  	display:none;
+			  }
+
+			  .selectedEventIcon{
+			  	display:inline;
+			  	max-width:100%;
+			  	width:100%;
+			  	font-size: 4em;
+			  	text-align:center;
+			  }
+
+			  .bodyContainer{
+			  	flex-direction: column;
+			  	height: 70vh;
+			  }
+
+			  .controllerButton{
+			  	text-align: center;
+			  	font-size: 3.2em;
+			  	flex: 2;
+		  	    padding-top: 1em;
+			  }
+
+			  .controllerButton img {
+			  	width:2.4em;
+			  }
+
+			  #eventController{
+			  	flex-direction: column-reverse;
+			  }
+
+			  #mapContainer{
+			  	flex: 3;
+			  }
+
+			  .videoView{
+			  	height:30vh;
+			  }
+
+			  .controllerButton{
+			  	padding-top:0;
+			  	font-size: 4em;
+			  }
+
+			  .eventDescription{
+			  	font-size: 4em;
+			  }
+
 			}
 		</style>
 		<div id="headerBar">
-			<div class="headerButton" style="background-image: url('menu.png');"></div>
-			<div class="headerButton" style="background-image: url('info.png');"></div>
+			<div class="headerButton" style="background-image: url('Menu.png');"></div>
+			<div class="headerButton" style="background-image: url('Info.png');"></div>
 		</div>
 		<div id="eventAndControllerContainer" class="topBar">
-			<div class="controllerButton previousButton" onclick="handleEventChange(this)">Previous Event<br/><img src="back.png"/></div>
+			<div class="controllerButton previousButton" onclick="handleEventChange(this)">Previous Event<br/><img src="Back.png"/></div>
 			<div id="eventContainer" >
 				
 			</div>
-			<div class="controllerButton nextButton" onclick="handleEventChange(this)">Next Event<br/><img src="forward.png"/></div>
+			<div class="controllerButton nextButton" onclick="handleEventChange(this)">Next Event<br/><img src="Forward.png"/></div>
 		</div>
 		
 
 		<div class="bodyContainer">
 			<div id="mapContainer"></div>
 			<div id="videoContainer">
-						<div  class="controllerTopLevelSection" id="eventController">
-				<div class="controllerSection">
-					<div class="controllerButton previousButton" onclick="handleVideoChange(this)">Previous Video</div>
-					<div class="controllerButton nextButton" onclick="handleVideoChange(this)">Next Video</div>
+				<div  class="controllerTopLevelSection" id="eventController">
+					<div class="controllerSection">
+						<div class="controllerButton previousButton" onclick="handleVideoChange(this)">Previous Video</div>
+						<div class="controllerButton nextButton" onclick="handleVideoChange(this)">Next Video</div>
+					</div>
+				
+					<iframe title='YouTube video player' type=\"text/html\" src='https://www.youtube.com/embed/' frameborder='0' allowFullScreen class="videoView" id="videoPlayer"></iframe>
 				</div>
-			</div>
-				<iframe title='YouTube video player' type=\"text/html\" src='https://www.youtube.com/embed/' frameborder='0' allowFullScreen class="videoView" id="videoPlayer"></iframe>
 				<div class="eventDescription">
-			<div id="timelineTitle">Loading</div>
-		</div>
+					<div id="timelineTitle">Loading</div>
+				</div>
 			</div>
 
 		</div>

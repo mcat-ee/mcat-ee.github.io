@@ -1,5 +1,5 @@
 
-var searchStub = "/"
+var searchStub = "/context-search-example/"
 var queryKey = "search";
 
 var height = 30;

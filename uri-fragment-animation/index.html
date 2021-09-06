@@ -9,41 +9,35 @@
         window.tick.fullText = "Testing...";
         window.tick.currentText = null;
         window.tick.intervalId = null;
-        window.tick.mode = "simple"; //Options: simple, space
+        window.tick.mode = "space"; //Options: simple, space
 
         function tickSpace() {
-            console.log(window.tick);
             var index = window.tick.number;
             
             if(index == tick.fullText.length) {
-                    window.location.hash = window.tick.fullText;
-
-                    clearInterval(tick.intervalId);
-                    return;
+                window.location.hash = window.tick.fullText;
+                // clearInterval(tick.intervalId);
+                // tick.intervalId = null;
+                // return;
+                tick.currentText = null;
+                tick.number = 0;
+                return;
             }
 
             if(window.tick.currentText == null) {
                 //initialise tick text state
-                console.log("Setting currenttext");
                 window.tick.currentText = window.tick.fullText;
-                
             } else {
                 //Fix up previous character
                 window.tick.currentText = window.tick.currentText.replaceAt(index-1,window.tick.fullText[index-1]);
                 if(window.tick.currentText == window.tick.fullText) {
-                    // console.log("Ending space loop");
                     // clearInterval(tick.intervalId);
                 }
             }
 
             //Set current char as _
-            console.log(index);
             window.tick.currentText = window.tick.currentText.replaceAt(index,"_");
-            console.log(window.tick.currentText);
-//            var new_character = window.tick.fullText[window.tick.number];
-            
             window.location.hash = window.tick.currentText;
-            console.log()
             window.tick.number++;
         }
 
@@ -52,11 +46,9 @@
                 //initialise tick text state
                 window.tick.currentText = "";
             }
-
             var new_character = window.tick.fullText[window.tick.number];
             
             if(new_character == undefined) {
-                //console.log("End of string appears to have been reached, clearing interval.");
                 //clearInterval(window.tick.intervalId);
                 window.tick.currentText = "";
                 window.tick.number = -1;
@@ -74,16 +66,43 @@
                 tickSimple();
             }
             if(window.tick.mode == "space") {
-                console.log("SPACE");
                 tickSpace();
             }
         }
 
+        function toggleSpace() {
+            console.log("Toggling space animation");
+            window.tick.currentText = null;
+            if(window.tick.intervalId != null) {
+                clearInterval(window.tick.intervalId);
+
+            }
+
+            window.tick.number = 0;
+            window.tick.mode = "space";
+            window.tick.intervalId = setInterval(()=>{
+                tickFunc();
+            },80);
+        }
+
+        function toggleSimple() {
+            console.log("Toggling simple animation");
+            window.tick.currentText = "";
+            if(window.tick.intervalId != null) {
+                clearInterval(window.tick.intervalId);
+            }
+            window.tick.mode = "simple";
+            window.tick.intervalId = setInterval(()=>{
+                tickFunc();
+            },80);
+        }
+
         window.tick.intervalId = setInterval(()=>{
-            //console.log(`tick ${window.tick.number}\n\t${window.tick.currentText}`);
             tickFunc();
         },80);
     </script>
     <body>
+        <button onclick="toggleSimple()">Simple Animation</button>
+        <button onclick="toggleSpace()">Space Animation</button>
     </body>
 </html>
